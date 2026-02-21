@@ -1,0 +1,70 @@
+apiVersion: '2021-09-01'
+location: southeastasia
+name: cafe-container-group
+properties:
+  containers:
+  - name: cafedb
+    properties:
+      image: cafeweb.azurecr.io/cafedb:latest
+      resources:
+        requests:
+          cpu: 1
+          memoryInGb: 1
+      ports:
+      - port: 3306  # MySQL/MariaDB
+        protocol: TCP
+      environmentVariables:
+      - name: MYSQL_ROOT_PASSWORD
+        secureValue: 'Msois@123'
+      - name: MYSQL_DATABASE
+        value: 'cafedb'
+      - name: MYSQL_USER
+        value: 'cafeuser'
+      - name: MYSQL_PASSWORD
+        secureValue: 'CafeUserPassword123!'
+  
+  - name: cafeweb
+    properties:
+      image: cafeweb.azurecr.io/cafeweb:latest
+      resources:
+        requests:
+          cpu: 2
+          memoryInGb: 1
+      ports:
+      - port: 80
+        protocol: TCP
+      - port: 443
+        protocol: TCP
+      environmentVariables:
+      - name: DB_HOST
+        value: '127.0.0.1' # Same container group = localhost
+      - name: DB_PORT
+        value: '3306'
+      - name: DB_NAME
+        value: 'cafedb'
+      - name: DB_USER
+        value: 'cafeuser'
+      - name: DB_PASSWORD
+        secureValue: 'CafeUserPassword123!'
+  
+  imageRegistryCredentials:
+  - server: cafeweb.azurecr.io
+    username: cafeweb
+    password: '1o0hRCGMoVrkCsWCNn5E6rFAeFnuAUg9RWXiauvy5Y8MZrsbwQjOJQQJ99CBACqBBLyEqg7NAAACAZCRIFji'
+  
+  ipAddress:
+    type: Public
+    dnsNameLabel: neeharcafe
+    ports:
+    - protocol: TCP
+      port: 80
+    - protocol: TCP
+      port: 443
+  
+  osType: Linux
+  restartPolicy: Always
+
+tags:
+  environment: production
+  project: cafe-web
+

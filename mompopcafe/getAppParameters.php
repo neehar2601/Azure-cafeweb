@@ -1,14 +1,13 @@
 <?php
-  // Get the application environment parameters from the Parameter Store.
-  //include ('getAppParameters.php');
+  // Database configuration for Azure Container Group
   $showServerInfo = "false";
   $timeZone = "America/New_York";
   $currency = "$";
-  $db_url = "mysql";
-  $db_name = "mom_pop_db";
-  $db_user = "root";
-  $db_password = "Msois@123";
   
-  // Display the server metadata information if the showServerInfo parameter is true.
-  //include('serverInfo.php');
+  // Use environment variables with fallback to localhost
+  $db_url = getenv('DB_HOST') ?: "localhost";
+  $db_name = getenv('DB_NAME') ?: "cafedb";
+  $db_user = getenv('DB_USER') ?: "cafeuser";
+  $db_password = getenv('DB_PASSWORD') ?: "CafeUserPassword123!";
 ?>
+ 
