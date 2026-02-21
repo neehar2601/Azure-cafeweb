@@ -146,7 +146,7 @@ az provider show \
   --output tsv
 ```
 
-**What happened:** You got `MissingSubscriptionRegistration` error because this step was skipped initially. Provider registration can take 2-5 minutes.
+If You get `MissingSubscriptionRegistration` error, probably this step was skipped initially. Provider registration can take 2-5 minutes.
 
 ### 2.2 Create Container Registry
 
@@ -293,19 +293,8 @@ echo "Password: $ACR_PASSWORD"
 
 ### 4.3 Create Container Instance
 
-**Initial attempt (with syntax error):**
+**Command:**
 ```bash
-# ❌ WRONG - Missing -- before dns-name-label
-az container create --resource-group cafe-web --name cafeweb \
-  --image cafeweb.azurecr.io/cafeweb--dns-name-label neeharcafe \
-  --ports 80 443 --os-type linux --memory 1024 --cpu 2
-```
-
-**Error:** `unrecognized arguments: neeharcafe`
-
-**Corrected command:**
-```bash
-# ✅ CORRECT - Fixed syntax and memory value
 az container create \
   --resource-group cafe-web \
   --name cafeweb \
@@ -319,12 +308,6 @@ az container create \
   --registry-username $ACR_USERNAME \
   --registry-password $ACR_PASSWORD
 ```
-
-**Key fixes:**
-1. Added `--` before `dns-name-label`
-2. Changed `--memory 1024` to `--memory 1` (1 GB, not 1024 GB!)
-3. Added `:latest` tag to image
-4. Added registry authentication parameters
 
 ### 4.4 Alternative: Using Managed Identity (More Secure)
 
@@ -382,6 +365,7 @@ neeharcafe.southeastasia.azurecontainer.io  20.44.226.214  Running
 Your container is now accessible at:
 - **HTTP:** `http://neeharcafe.southeastasia.azurecontainer.io`
 - **HTTPS:** `https://neeharcafe.southeastasia.azurecontainer.io` (if SSL configured in container)
+**note**: This project is to understand the working of Azure, so the website is not working now.
 
 ```bash
 # Test with curl
@@ -486,7 +470,7 @@ az container create \
 
 After running the `az container create` command, you should see output similar to this:
 
-![ACI Deployment Success](https://agi-prod-file-upload-public-main-use1.s3.amazonaws.com/acda1f39-76eb-48c0-a1bc-1f8857396ee2)
+![ACI Deployment Success](https://devops-learner.s3.us-east-2.amazonaws.com/Azure-images/Cafe_web_azure.png)
 
 **Key information shown:**
 - **FQDN:** `neeharcafe.southeastasia.azurecontainer.io`
@@ -500,7 +484,7 @@ After running the `az container create` command, you should see output similar t
 
 Once deployed, your application is accessible via the FQDN. Here's the live cafe website running on ACI:
 
-![Cafe Website Live on ACI](https://agi-prod-file-upload-public-main-use1.s3.amazonaws.com/261bb08c-447b-472f-8b62-5fed144cd0ad)
+![Cafe Website Live on ACI](https://devops-learner.s3.us-east-2.amazonaws.com/Azure-images/Cafe_web_terminal.png)
 
 **What's working:**
 - ✅ Public internet access via FQDN
@@ -556,7 +540,7 @@ This policy maintains a set of best available regions where your subscription
 can deploy resources.
 ```
 
-**What happened:** You tried to create ACR in `EastUS`, but your subscription policy only allows `southeastasia`.
+**What happened:** I tried to create ACR in `EastUS`, but subscription policy only allowed `southeastasia`.
 
 **Solution:**
 ```bash
@@ -598,6 +582,7 @@ az provider show \
 ---
 
 ### Issue 3: Unrecognized Arguments Error
+**Example**
 
 **Error:**
 ```
@@ -616,7 +601,7 @@ unrecognized arguments: neeharcafe
 --dns-name-label neeharcafe  # Has proper --
 ```
 
-**Lesson:** Azure CLI is strict about parameter syntax - every flag needs `--` prefix.
+**Solution** Azure CLI is strict about parameter syntax - every flag needs `--` prefix.
 
 ---
 
