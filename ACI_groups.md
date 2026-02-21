@@ -209,6 +209,13 @@ az container exec \
 # Inside the shell:
 mysql -h 127.0.0.1 -u cafeuser -p'CafeUserPassword123!' -e 'USE cafedb; SHOW TABLES;'
 ```
+![FQDN_Output](https://devops-learner.s3.us-east-2.amazonaws.com/Azure-images/ACI_group_FQDN.png)
+
+![ACI Group Container List](https://devops-learner.s3.us-east-2.amazonaws.com/Azure-images/ACI_Group_containerlist.png)
+
+![ACI Deployment Success](https://devops-learner.s3.us-east-2.amazonaws.com/Azure-images/ACI_group_home.png)
+
+![ACI Group DB](https://devops-learner.s3.us-east-2.amazonaws.com/Azure-images/ACI_Orders_DB_Connection.png)
 
 ---
 
