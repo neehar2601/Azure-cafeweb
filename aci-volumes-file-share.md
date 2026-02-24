@@ -911,9 +911,9 @@ properties:
   volumes:
   - name: persistent-storage
     azureFile:
-      shareName: neeharcafeweb
-      storageAccountName: neeharcafestorage
-      storageAccountKey: xN+WriNe38VZ3NWqxtcTs41MlcirtEt+8mR5b32gxSDQrfBUfZ+3GmDBsHEzcf2eCgQVYBSILMsI+AStyu8t5Q==
+      shareName: <Enter the share name>
+      storageAccountName: <Enter the storage account name>
+      storageAccountKey: <Enter the storage account key>
 
   containers:
   - name: cafedb

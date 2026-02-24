@@ -19,13 +19,13 @@ properties:
           memoryInGb: 1
       environmentVariables:
       - name: MYSQL_ROOT_PASSWORD
-        secureValue: 'Msois@123'
+        secureValue: '<Enter the MySQL root password>'
       - name: MYSQL_DATABASE
         value: 'cafedb'
       - name: MYSQL_USER
         value: 'cafeuser'
       - name: MYSQL_PASSWORD
-        secureValue: 'CafeUserPassword123!'
+        secureValue: '<Enter the MySQL user password>'
       volumeMounts:  # Fixed syntax here
       - mountPath: /var/lib/mysql    # camelCase, no space
         name: persistent-storage
@@ -50,7 +50,7 @@ properties:
       - name: DB_USER
         value: 'cafeuser'
       - name: DB_PASSWORD
-        secureValue: 'CafeUserPassword123!'
+        secureValue: '<Enter the MySQL user password>'
       ports:
       - port: 80
         protocol: TCP
