@@ -1,0 +1,79 @@
+apiVersion: '2021-09-01'
+location: southeastasia
+name: cafe-container-group
+properties:
+  volumes:
+  - name: persistent-storage
+    azureFile:
+      shareName: <Enter the share name>
+      storageAccountName: <Enter the storage account name>
+      storageAccountKey: <Enter the storage account key>
+
+  containers:
+  - name: cafedb
+    properties:
+      image: cafeweb.azurecr.io/cafedb:latest
+      resources:
+        requests:
+          cpu: 1
+          memoryInGb: 1
+      environmentVariables:
+      - name: MYSQL_ROOT_PASSWORD
+        secureValue: 'Msois@123'
+      - name: MYSQL_DATABASE
+        value: 'cafedb'
+      - name: MYSQL_USER
+        value: 'cafeuser'
+      - name: MYSQL_PASSWORD
+        secureValue: 'CafeUserPassword123!'
+      volumeMounts:  # Fixed syntax here
+      - mountPath: /var/lib/mysql    # camelCase, no space
+        name: persistent-storage
+      ports:
+      - port: 3306
+        protocol: TCP
+  
+  - name: cafeweb
+    properties:
+      image: cafeweb.azurecr.io/cafeweb:latest
+      resources:
+        requests:
+          cpu: 2
+          memoryInGb: 1
+      environmentVariables:
+      - name: DB_HOST
+        value: '127.0.0.1'
+      - name: DB_PORT
+        value: '3306'
+      - name: DB_NAME
+        value: 'cafedb'
+      - name: DB_USER
+        value: 'cafeuser'
+      - name: DB_PASSWORD
+        secureValue: 'CafeUserPassword123!'
+      ports:
+      - port: 80
+        protocol: TCP
+      - port: 443
+        protocol: TCP
+  
+  imageRegistryCredentials:
+  - server: <Enter the server name>
+    username: <Enter the username>
+    password: '<ENter you access key>'
+  
+  ipAddress:
+    type: Public
+    dnsNameLabel: <Enter the dns name label>
+    ports:
+    - protocol: TCP
+      port: 80
+    - protocol: TCP
+      port: 443
+  
+  osType: Linux
+  restartPolicy: Always
+
+tags:
+  environment: production
+  project: cafe-web
