@@ -207,7 +207,7 @@ az container exec \
   --exec-command "/bin/sh"
 
 # Inside the shell:
-mysql -h 127.0.0.1 -u cafeuser -p'CafeUserPassword123!' -e 'USE cafedb; SHOW TABLES;'
+mysql -h 127.0.0.1 -u cafeuser -p'<Enter the MySQL user password>' -e 'USE cafedb; SHOW TABLES;'
 ```
 ![FQDN_Output](https://devops-learner.s3.us-east-2.amazonaws.com/Azure-images/ACI_group_FQDN.png)
 

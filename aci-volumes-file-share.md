@@ -209,7 +209,7 @@ az storage account keys list \
 ```
 KeyName    Permissions    Value
 ---------  -------------  --------------------------------------------------
-key1       Full           xN+WriNe38VZ3NWqxtcTs41MlcirtEt+8mR5b32gxSDQ...
+key1       Full           <your-storage-account-key>
 key2       Full           Ab+CdEfGh12IjKlMnOpQrStUvWxYz34567890ABCDE...
 ```
 
@@ -229,7 +229,7 @@ properties:
     azureFile:
       shareName: neeharcafeweb          # File share name from Step 1
       storageAccountName: neeharcafestorage  # Storage account from Step 1
-      storageAccountKey: xN+WriNe...    # Key from Step 2
+      storageAccountKey: <Enter the storage account key>    # Key from Step 2
 
   containers:
   - name: mysql-test
@@ -257,7 +257,7 @@ properties:
     azureFile:
       shareName: neeharcafeweb
       storageAccountName: neeharcafestorage
-      storageAccountKey: xN+WriNe38VZ3NWqxtcTs41MlcirtEt+8mR5b32gxSDQrfBUfZ+3GmDBsHEzcf2eCgQVYBSILMsI+AStyu8t5Q==
+      storageAccountKey: <Enter the storage account key>
 
   containers:
   - name: mysql-test
@@ -725,7 +725,7 @@ az backup vault create --resource-group cafe-web --name cafe-backup-vault
 **❌ DON'T:**
 ```yaml
 # Don't put storage key in YAML directly (it's in Git!)
-storageAccountKey: xN+WriNe38VZ...
+storageAccountKey: <Enter the storage account key>
 ```
 
 **✅ DO:**
@@ -925,13 +925,13 @@ properties:
           memoryInGb: 1
       environmentVariables:
       - name: MYSQL_ROOT_PASSWORD
-        secureValue: 'Msois@123'
+        secureValue: '<Enter the MySQL root password>'
       - name: MYSQL_DATABASE
         value: 'cafedb'
       - name: MYSQL_USER
         value: 'cafeuser'
       - name: MYSQL_PASSWORD
-        secureValue: 'CafeUserPassword123!'
+        secureValue: '<Enter the MySQL user password>'
       volumeMounts:
       - mountPath: /var/lib/mysql
         name: persistent-storage
@@ -956,13 +956,12 @@ properties:
       - name: DB_USER
         value: 'cafeuser'
       - name: DB_PASSWORD
-        secureValue: 'CafeUserPassword123!'
+        secureValue: '<Enter the MySQL user password>'
       ports:
       - port: 80
         protocol: TCP
       - port: 443
         protocol: TCP
-
   imageRegistryCredentials:
   - server: cafeweb.azurecr.io
     username: cafeweb
@@ -1019,7 +1018,7 @@ az container exec \
   --exec-command "/bin/sh"
 
 # Inside container:
-mysql -h 127.0.0.1 -u cafeuser -p'CafeUserPassword123!' \
+mysql -h 127.0.0.1 -u cafeuser -p'<Enter the MySQL user password>' \
   -e "CREATE DATABASE IF NOT EXISTS testpersist; USE testpersist; CREATE TABLE test(id INT); INSERT INTO test VALUES (1); SELECT * FROM test;"
 
 # 5. Delete and recreate
@@ -1033,7 +1032,7 @@ az container exec \
   --container-name cafeweb \
   --exec-command "/bin/sh"
 
-mysql -h 127.0.0.1 -u cafeuser -p'CafeUserPassword123!' \
+mysql -h 127.0.0.1 -u cafeuser -p'<Enter the MySQL user password>' \
   -e "USE testpersist; SELECT * FROM test;"
 ```
 

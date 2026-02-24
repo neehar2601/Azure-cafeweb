@@ -15,13 +15,13 @@ properties:
         protocol: TCP
       environmentVariables:
       - name: MYSQL_ROOT_PASSWORD
-        secureValue: 'Msois@123'
+        secureValue: '<Enter the MySQL root password>'
       - name: MYSQL_DATABASE
         value: 'cafedb'
       - name: MYSQL_USER
         value: 'cafeuser'
       - name: MYSQL_PASSWORD
-        secureValue: 'CafeUserPassword123!'
+        secureValue: '<Enter the MySQL user password>'
   
   - name: cafeweb
     properties:
@@ -45,12 +45,12 @@ properties:
       - name: DB_USER
         value: 'cafeuser'
       - name: DB_PASSWORD
-        secureValue: 'CafeUserPassword123!'
+        secureValue: '<Enter the MySQL user password>'
   
   imageRegistryCredentials:
   - server: cafeweb.azurecr.io
     username: cafeweb
-    password: '1o0hRCGMoVrkCsWCNn5E6rFAeFnuAUg9RWXiauvy5Y8MZrsbwQjOJQQJ99CBACqBBLyEqg7NAAACAZCRIFji'
+    password: '<Enter the ACR access key>'
   
   ipAddress:
     type: Public
