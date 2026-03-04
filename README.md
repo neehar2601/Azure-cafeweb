@@ -29,6 +29,9 @@ Containerization is a core focus of this repository. Detailed documentation can 
 | **Azure Container Instances (ACI)** | [ACI Groups Overview](/Azure_Containers/ACI_groups.md) |
 | **AKS (Kubernetes)** | Included in the [Starter Guide](/azure-starter-guide.md#step-3-resource-providers) |
 | **Persistent Storage** | [ACI Volumes & File Shares](/Azure_Containers/aci-volumes-file-share.md) |
+| **Networking (VNet)** | [Web + DB Network Topology](/Azure_VNet_Setup.md) |
+
+![VNet Deployment](https://devops-learner.s3.us-east-2.amazonaws.com/Azure-images/Vnet_deployment.png)
 
 ### 3. Sample Application: MomPopCafe
 Throughout the guides, we use a PHP/MySQL application called **MomPopCafe** as a practical example.
