@@ -132,14 +132,28 @@ Only allow SQL traffic originating from the `WebSubnet`:
 az network nsg rule create \
   --resource-group "$RG_NAME" \
   --nsg-name "$DB_NSG_NAME" \
-  --name Allow-DB-From-WebSubnet \
-  --priority 100 \
+  --name AllowMySQLFromWebSubnet \
+  --protocol Tcp \
+  --direction Inbound \
   --source-address-prefixes "$WEB_SUBNET_CIDR" \
+  --source-port-range '*' \
   --destination-address-prefixes "$DB_SUBNET_CIDR" \
-  --destination-port-ranges "$DB_PORT"
+  --destination-port-range "$DB_PORT" \
+  --access Allow \
+  --priority 200
 
-![NSG Deployment](https://devops-learner.s3.us-east-2.amazonaws.com/Azure-images/NSG_deployment.png)
+![NSG Deployment](https://devops-learner.s3.us-east-2.amazonaws.com/Azure-images/DBNSG.png)
 ```
+Azure NSGs don’t support “security-group-as-source/destination” the way AWS security groups do.
+
+What Azure supports instead
+In NSG rules you can only use:
+```
+  IP/CIDR: 10.0.1.0/24, 10.0.1.4/32
+  Default tags: VirtualNetwork, Internet, AzureLoadBalancer
+  Service tags: Sql, Storage, AzureMonitor, etc.
+```
+You cannot reference another NSG’s name or ID in source-address-prefixes or destination-address-prefixes
 
 ### 5. Associate NSGs with Subnets
 ```bash
